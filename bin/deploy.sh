@@ -1,0 +1,1 @@
+meteor deploy comichat.meteor.com

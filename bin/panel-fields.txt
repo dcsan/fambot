@@ -1,0 +1,6 @@
+tpl
+page
+story
+url
+src
+text

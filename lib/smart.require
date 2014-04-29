@@ -1,0 +1,23 @@
+{
+	"famous": {
+		"git": "https://github.com/Famous/famous.git"
+	},
+	"famous-polyfills": {
+		"git": "https://github.com/Famous/polyfills.git"
+	},
+	"library": {
+		"git": "https://github.com/raix/library.git"
+	},
+	"fs": {
+		"git": "git://github.com/matthewp/fs.git"
+	},
+	"colors": {
+		"git": "git://github.com/mrmrs/colors.git"
+	},
+	"path": {
+		"git": "git://github.com/anodynos/node2web_path.git"
+	},
+	"http": {
+		"git": "git://github.com/anodynos/node2web_http.git"
+	}
+}

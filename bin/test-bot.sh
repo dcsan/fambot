@@ -1,0 +1,1 @@
+cd packages/bot && meteor test-packages ./
