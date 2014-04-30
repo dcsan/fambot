@@ -1,3 +1,14 @@
 bot chat bounce game
 
 https://www.youtube.com/watch?v=Jawt6poFOrw#t=383
+
+
+var circle1 = new Circle(
+	{radius : 100, 
+		velocity : [ 1, 1, 0]		# 1ms = 1 px
+	})
+physicsEngine.addBody(circle1)
+physicsEngine.addBody(circle2)
+physicsEngine.attach(collision, circle1, circle2)
+
+context.add(circle1).add(surface)
