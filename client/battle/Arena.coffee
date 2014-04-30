@@ -4,6 +4,8 @@ RenderController= require("famous/views/RenderController")
 PhysicsEngine	= require("famous/physics/PhysicsEngine")
 Collision 		= require("famous/physics/constraints/Collision")
 Transform       = require("famous/core/Transform")
+Walls 			= require("famous/physics/constraints/Walls")
+Wall 			= require("famous/physics/constraints/Wall")
 
 class @Arena
 	constructor: (@allUnits) ->
@@ -11,8 +13,11 @@ class @Arena
 		@vh = window.innerHeight
 		@units = []
 		@lastUnit = null
+		@walls = []
 		@mainContext = Engine.createContext()
-		@physicsEngine = new PhysicsEngine()
+		@physicsEngine = new PhysicsEngine(
+			origin: [0.5, 0.5, 0.5]
+		)
 
 		@collision = new Collision({restitution : .7})
 
@@ -38,13 +43,23 @@ class @Arena
 				transform: Transform.translate(opts.px, 0, 0)
 			}
 		)
-
 		@mainContext.add(unit.body).add(unit.surf)
 		# @mainContext.add(unit.body).add(mod).add(unit.surf)
-
 		# @renderController.add(unit.body).add(unit.surf)
 		# @physicsEngine.attach(collision, circle1, circle2)
 		return unit
+
+	addWalls: (opts) ->
+		# left wall
+		# @walls.push = new Wall({normal : [  1,0,0], distance : 200})
+		# righ wall
+		# @walls.push = new Wall({normal : [  -1,0,0], distance : 300})
+		# @walls.push = new Wall({normal : [   0,1,0], distance : 300})
+
+		@walls = new Walls()
+		console.log("created walls")
+		for w in @walls
+			@physicsEngine.attach(w)
 
 	hideUnit: (uname) ->
 		u = @units.pop()
@@ -53,6 +68,6 @@ class @Arena
 
 	setCollision: (obj1, obj2) ->
 		@physicsEngine.attach(@collision, obj1, obj2)
-		@collision.on 'collide', ->
+		@collision.on 'collision', ->
 			console.log("collide")
 

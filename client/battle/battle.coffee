@@ -16,19 +16,20 @@ Template.battle.init = (units) ->
 	@bat = new Arena(units)
 	console.log("battle.init", @bat, units)
 	unit1 = @bat.addUnit(units[0], {
-		pos: [0, 0, 0]
+		pos: [ 100,      0, 0]
 		vel: [ 0.1, 0.01, 0]
 	})
 	unit2 = @bat.addUnit(units[0], {
-		pos: [400, 0, 0]
-		vel: [ -0.01, 0.01, 0]
+		pos: [ 300, 0, 0]
+		vel: [ -0.1, 0.01, 0]
 		# vel: [ 0, 0.01, 0]
 	})
 
 	console.log("setCollision", unit1.body, unit2.body)
 	
 	@bat.setCollision(unit1.body, unit2.body)
-	window.bat = @bat
+	@bat.addWalls()
+	window.bat 	 = @bat
 	window.unit1 = unit1
 	window.unit2 = unit2
 	return "ready"
@@ -53,7 +54,7 @@ Template.battle.events =
 		pos = randomVec()
 
 		unit = @bat.addUnit(uname,
-			pos: randomVec()
+			pos: randomVec(100,100,1)
 			vel: randomVec(10, 10, 10)
 		)
 
