@@ -17,7 +17,8 @@ class @Unit
 			content: imgurl
 			size: [ 100, 100 ]
 			properties:
-				backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
+				# backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
+				backgroundColor: "green"
 		)
 		@surf.addClass("rounder")
 
@@ -43,6 +44,9 @@ class @Unit
 	# 		transitionable.set 0, transition
 	# 	return
 
+
+	bounce: (opts) ->
+		@surf.properties.backgroundColor = "red"
 
 	addBody: (opts) ->
 		@body = new Circle(
