@@ -1,7 +1,9 @@
-template(name="battleX")
+template(name="battle")
 	h1 Battle!
 
 	p #{units}
 
-	{{ initBattle "boo" }}
 	button#addMon(value="click") add
+	button#delMon(value="click") remove
+
+	{{ init units }}

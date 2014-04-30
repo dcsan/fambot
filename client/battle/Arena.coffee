@@ -53,8 +53,6 @@ class @Arena
 
 	setCollision: (obj1, obj2) ->
 		@physicsEngine.attach(@collision, obj1, obj2)
-
-
-
-
+		@collision.on 'collide', ->
+			console.log("collide")
 

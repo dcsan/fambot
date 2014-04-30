@@ -12,6 +12,7 @@ Template.unit.icon = (unit) ->
 
 Template.battle.init = (units) ->
 	return unless units
+	console.log("init with", units)
 	@bat = new Arena(units)
 	console.log("battle.init", @bat, units)
 	unit1 = @bat.addUnit(units[0], {
@@ -27,7 +28,6 @@ Template.battle.init = (units) ->
 	console.log("setCollision", unit1.body, unit2.body)
 	
 	@bat.setCollision(unit1.body, unit2.body)
-
 	window.bat = @bat
 	window.unit1 = unit1
 	window.unit2 = unit2
