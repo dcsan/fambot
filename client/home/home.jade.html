@@ -1,18 +1,18 @@
 template(name="home")
 	h1 home
 
-	p {{greeting}}
+	p #{msg}
 
-	h3 Units
+	h3 units list
 	ul
+	each units
 		li
-			a(href="/units/red") red
-		li
-			a(href="/units/red") blue
+			a(href="/units/#{this}") 
+				img(src="/units/icon100/#{this}_deck.png")
+				span #{this}
 
 
-	button#btn1(value="click") click me
-
-	div#tile tile 1
+	hr
+	button#btn1(value="click") check
 
 	+footer
