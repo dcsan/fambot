@@ -1,1 +1,1 @@
-meteor deploy comichat.meteor.com
+meteor deploy famfiziks.meteor.com
