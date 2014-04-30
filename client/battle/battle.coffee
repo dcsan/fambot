@@ -32,6 +32,7 @@ class Battle
 		@vw = window.innerWidth
 		@vh = window.innerHeight
 		@units = []
+		@lastUnit = null
 		mainContext = Engine.createContext()
 		@renderController = new RenderController()
 		mainContext.add(new Modifier(origin: [
@@ -45,6 +46,10 @@ class Battle
 		console.log("units:", @units)
 		@renderController.show (unit.surf)
 
+	hideUnit: (uname) ->
+		u = @units.pop()
+		@renderController.hide (u.surf)
+		console.log("hid", u)
 
 
 Template.unit.icon = (unit) ->
@@ -55,9 +60,11 @@ Template.battle.init = (units) ->
 	return unless units
 	@bat = new Battle(units)
 	console.log("battle.init", @bat, units)
-	@bat.addUnit(units[0])
+	# @bat.addUnit(units[0])
 	window.bat = @bat
 	return "ready"
+
+
 
 Template.battle.greeting = () ->
 	return "welcome back"
@@ -68,6 +75,9 @@ Template.battle.events =
 		uname = _.sample(@bat.allUnits)
 		console.log "addMon", uname
 		@bat.addUnit(uname)
+
+	"click #hide": (event) ->
+		@bat.hideUnit()
 
 
 
