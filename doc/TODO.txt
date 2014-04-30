@@ -2,6 +2,7 @@ bot chat bounce game
 
 https://www.youtube.com/watch?v=Jawt6poFOrw#t=383
 
+physics demo
 
 var circle1 = new Circle(
 	{radius : 100, 
