@@ -13,3 +13,18 @@ physicsEngine.addBody(circle2)
 physicsEngine.attach(collision, circle1, circle2)
 
 context.add(circle1).add(surface)
+
+
+wall = new Walls(
+	sides: 
+)
+
+
+walls.2dimensional(
+	100
+	100
+	200
+	200
+)
+
+

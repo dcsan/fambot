@@ -17,7 +17,7 @@ unitIcon = (unit) ->
 	renderController = new RenderController()
 	i = 3
 
-	surf = new ImageSurface(
+	surf = new Surface(
 		# content: "Surface: " + (i + 1)
 		size: [ true, true ]
 		properties:
@@ -26,7 +26,12 @@ unitIcon = (unit) ->
 			textAlign: "center"
 	)
 
-	surf.setContent("/units/monster/#{unit}_monster.png")
+	imgurl = "/units/monster/#{unit}_monster.png"
+	# surf.setContent("")
+	# surf.setContent("<img src='#{imgurl}' class='rounder' />")
+
+	# surf.addClass("rounder")
+	surf.setContent("<div class='rounder'>hello</div>")
 
 	renderController.show surf
 	mainContext.add(new Modifier(origin: [
