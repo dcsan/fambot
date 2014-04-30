@@ -51,12 +51,11 @@ class @Arena
 
 	addWalls: (opts) ->
 		# left wall
-		# @walls.push = new Wall({normal : [  1,0,0], distance : 200})
-		# righ wall
-		# @walls.push = new Wall({normal : [  -1,0,0], distance : 300})
-		# @walls.push = new Wall({normal : [   0,1,0], distance : 300})
+		@walls.push = new Wall({normal : [  1,0,0], distance : 200})
+		@walls.push = new Wall({normal : [  -1,0,0], distance : 300})
+		@walls.push = new Wall({normal : [   0,1,0], distance : 300})
 
-		@walls = new Walls()
+		# @walls = new Walls()
 		console.log("created walls")
 		for w in @walls
 			@physicsEngine.attach(w)
