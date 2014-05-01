@@ -1,3 +1,5 @@
+console.log("setup Arena")
+
 Engine 			= require("famous/core/Engine")
 Modifier 		= require("famous/core/Modifier")
 RenderController= require("famous/views/RenderController")
@@ -6,6 +8,9 @@ Collision 		= require("famous/physics/constraints/Collision")
 Transform       = require("famous/core/Transform")
 Walls 			= require("famous/physics/constraints/Walls")
 Wall 			= require("famous/physics/constraints/Wall")
+Transitionable  = require("famous/transitions/Transitionable")
+TweenTransition = require("famous/transitions/TweenTransition")
+Circle			= require("famous/physics/bodies/Circle")
 
 class @Arena
 	constructor: (@allUnits) ->
@@ -47,7 +52,21 @@ class @Arena
 		# @mainContext.add(unit.body).add(mod).add(unit.surf)
 		# @renderController.add(unit.body).add(unit.surf)
 		# @physicsEngine.attach(collision, circle1, circle2)
+		@addBox(unit)
 		return unit
+
+	addBox: (unit) ->
+		contextSize = @mainContext.getSize()
+		leftWall    = new Wall({normal : [1,0,0],  distance : contextSize[0]/2.0, restitution : 0.5});
+		rightWall   = new Wall({normal : [-1,0,0], distance : contextSize[0]/2.0, restitution : 0.5});
+		topWall     = new Wall({normal : [0,1,0],  distance : contextSize[1]/2.0, restitution : 0.5});
+		bottomWall  = new Wall({normal : [0,-1,0], distance : contextSize[1]/2.0, restitution : 0.5});
+
+		@physicsEngine.attach( leftWall,  [unit.body]);
+		@physicsEngine.attach( rightWall, [unit.body]);
+		@physicsEngine.attach( topWall,   [unit.body]);
+		@physicsEngine.attach( bottomWall,[unit.body]);
+
 
 	addWalls: (opts) ->
 		# left wall

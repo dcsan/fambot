@@ -28,7 +28,7 @@ Template.battle.init = (units) ->
 	console.log("setCollision", unit1.body, unit2.body)
 	
 	@bat.setCollision(unit1.body, unit2.body)
-	@bat.addWalls()
+	# @bat.addWalls()
 	window.bat 	 = @bat
 	window.unit1 = unit1
 	window.unit2 = unit2
@@ -60,3 +60,6 @@ Template.battle.events =
 
 	"click #delMon": (event) ->
 		@bat.hideUnit()
+
+	"click #wallsTest": (event) ->
+		Template.battle.wallsTest()
