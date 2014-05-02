@@ -28,7 +28,8 @@ class @Arena
 		for other in @units
 			@addCollision(unit, other)
 
-		@mainContext.add(unit.body).add(unit.surf)
+		# @mainContext.add(unit.body).add(unit.surf)
+		@mainContext.add(unit.body).add(unit.modifier).add(unit.surf)
 		@units.push(unit)
 		@addBox(unit)
 

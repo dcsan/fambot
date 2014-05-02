@@ -11,6 +11,17 @@ class @Unit
 		imgurl = "/units/monster/#{@uname}_monster.png"
 
 		@opts.size ?= [100,100]
+
+		## offset so that the physics body is centered
+		@modifier = new @Fam.Modifier(
+			# origin: [ 0.5, 0.5 ]
+			transform: @Fam.Transform.translate(
+				- opts.size[0]/2, 
+				- opts.size[1]/2, 
+				0
+			)
+		)
+
 		@surf = new @Fam.ImageSurface(
 			content: imgurl
 			size: @opts.size
@@ -18,9 +29,15 @@ class @Unit
 				# backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
 				backgroundColor: "white"
 		)
+
 		@surf.addClass("rounder")
 		@addBody(@opts)
 
+		@surf.on "click", =>
+			console.log("clicked", @body)
+			## TODO - apply force
+			@body.force[0] = 0.2
+			# @body.velocity[1] = 0.5
 
 	# bounce: () ->
 	# 	@modifier = new Modifier(
@@ -56,11 +73,11 @@ class @Unit
 		@surf.properties.backgroundColor = "green"
 
 	addBody: (obj) ->
-		obj.origin = [
-			- obj.size[0] * 3
-			- obj.size[1] * 3
-			- obj.size[2] * 3
-		]
+		# obj.origin = [
+		# 	- obj.size[0] * 3
+		# 	- obj.size[1] * 3
+		# 	- obj.size[2] * 3
+		# ]
 		# obj.position = [
 		# 	- obj.size[0] * 3
 		# 	- obj.size[1] * 3
