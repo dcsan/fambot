@@ -39,6 +39,7 @@ class @Arena
 	addBox: (unit) ->
 		contextSize = @mainContext.getSize()
 		fudge = unit.surf.getSize()
+		fudge = [0,0]  ## remove fudging to show bug
 
 		leftWall    = new @fam.Wall({normal : [1,0,0],  distance : fudge[0]/2 , restitution : @bouncey});
 		rightWall   = new @fam.Wall({normal : [-1,0,0], distance : contextSize[0] - fudge[1]/2, restitution : @bouncey});
@@ -72,7 +73,6 @@ class @Arena
 		@physicsEngine.attach(collision, unit1.body, unit2.body)
 		console.log("addCollision", unit1, unit2)
 		collision.on 'collision', (evt) =>
-			unit1.bounce()
-			unit2.bounce()
+			unit1.bounce(unit2)
 			console.log("collide: #{unit1.uname} #{unit2.uname}")
 

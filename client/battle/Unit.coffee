@@ -36,13 +36,16 @@ class @Unit
 	# 	return
 
 
-	bounce: (opts) ->
+	bounce: (other) ->
 		# @surf.properties.backgroundColor = "red"
-		setTimeout (=> @reset(@) ), 1000
+		# setTimeout (=> @reset(@) ), 1000
+		other.surf.properties.backgroundColor = "red"
+		setTimeout (=> other.reset() ), 1000
+
 
 	reset: (who) ->
-		console.log("reset", who.uname)
-		who.surf.properties.backgroundColor = "green"
+		console.log("reset", @uname)
+		@surf.properties.backgroundColor = "green"
 
 	addBody: (opts) ->
 		console.log("addBody, @Fam", @Fam)
