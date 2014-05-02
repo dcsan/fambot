@@ -1,33 +1,21 @@
-console.log("setup Arena")
-
-Engine 			= require("famous/core/Engine")
-Modifier 		= require("famous/core/Modifier")
-RenderController= require("famous/views/RenderController")
-PhysicsEngine	= require("famous/physics/PhysicsEngine")
-Collision 		= require("famous/physics/constraints/Collision")
-Transform       = require("famous/core/Transform")
-Walls 			= require("famous/physics/constraints/Walls")
-Wall 			= require("famous/physics/constraints/Wall")
-Transitionable  = require("famous/transitions/Transitionable")
-TweenTransition = require("famous/transitions/TweenTransition")
-Circle			= require("famous/physics/bodies/Circle")
-
 class @Arena
-	constructor: (@allUnits) ->
+	constructor: (@allUnits, @fam) ->
+		@fam.init()
+		console.log("construct Arena", @Fam)
 		@vw = window.innerWidth
 		@vh = window.innerHeight
 		@units = []
 		@lastUnit = null
 		@walls = []
-		@mainContext = Engine.createContext()
-		@physicsEngine = new PhysicsEngine(
+		@mainContext = @fam.Engine.createContext()
+		@physicsEngine = new @fam.PhysicsEngine(
 			origin: [0.5, 0.5, 0.5]
 		)
 
-		@collision = new Collision({restitution : .7})
+		# @collision = new @fam.Collision({restitution : .7})
 
-		# @renderController = new RenderController()
-		# @mainContext.add(new Modifier(origin: [
+		# @renderController = new @fam.RenderController()
+		# @mainContext.add(new @fam.Modifier(origin: [
 		# 	.5
 		# 	.5
 		# ])).add @renderController
@@ -39,28 +27,28 @@ class @Arena
 
 		@units.push(unit)
 		# @renderController.show (unit.surf)
-		console.log("new unit", unit)
+		console.log("new @fam.unit", unit)
 		# unit.bounce()
 		@physicsEngine.addBody(unit.body)
 
-		mod = new Modifier(
+		mod = new @fam.Modifier(
 			{
-				transform: Transform.translate(opts.px, 0, 0)
+				transform: @fam.Transform.translate(opts.px, 0, 0)
 			}
 		)
 		@mainContext.add(unit.body).add(unit.surf)
 		# @mainContext.add(unit.body).add(mod).add(unit.surf)
 		# @renderController.add(unit.body).add(unit.surf)
 		# @physicsEngine.attach(collision, circle1, circle2)
-		@addBox(unit)
+		# @addBox(unit)
 		return unit
 
 	addBox: (unit) ->
 		contextSize = @mainContext.getSize()
-		leftWall    = new Wall({normal : [1,0,0],  distance : contextSize[0]/2.0, restitution : 0.5});
-		rightWall   = new Wall({normal : [-1,0,0], distance : contextSize[0]/2.0, restitution : 0.5});
-		topWall     = new Wall({normal : [0,1,0],  distance : contextSize[1]/2.0, restitution : 0.5});
-		bottomWall  = new Wall({normal : [0,-1,0], distance : contextSize[1]/2.0, restitution : 0.5});
+		leftWall    = new @fam.Wall({normal : [1,0,0],  distance : contextSize[0]/2.0, restitution : 0.5});
+		rightWall   = new @fam.Wall({normal : [-1,0,0], distance : contextSize[0]/2.0, restitution : 0.5});
+		topWall     = new @fam.Wall({normal : [0,1,0],  distance : contextSize[1]/2.0, restitution : 0.5});
+		bottomWall  = new @fam.Wall({normal : [0,-1,0], distance : contextSize[1]/2.0, restitution : 0.5});
 
 		@physicsEngine.attach( leftWall,  [unit.body]);
 		@physicsEngine.attach( rightWall, [unit.body]);
@@ -70,11 +58,11 @@ class @Arena
 
 	addWalls: (opts) ->
 		# left wall
-		@walls.push = new Wall({normal : [  1,0,0], distance : 200})
-		@walls.push = new Wall({normal : [  -1,0,0], distance : 300})
-		@walls.push = new Wall({normal : [   0,1,0], distance : 300})
+		@walls.push = new @fam.Wall({normal : [  1,0,0], distance : 200})
+		@walls.push = new @fam.Wall({normal : [  -1,0,0], distance : 300})
+		@walls.push = new @fam.Wall({normal : [   0,1,0], distance : 300})
 
-		# @walls = new Walls()
+		# @walls = new @fam.Walls()
 		console.log("created walls")
 		for w in @walls
 			@physicsEngine.attach(w)

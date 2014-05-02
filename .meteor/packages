@@ -6,5 +6,6 @@
 standard-app-packages
 iron-router
 coffeescript
-jade
 famono
+jade
+famlib

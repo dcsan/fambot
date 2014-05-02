@@ -2,16 +2,11 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "famono": {},
       "iron-router": {},
-      "jade": {}
+      "jade": {},
+      "famono": {}
     },
     "packages": {
-      "famono": {
-        "git": "https://github.com/raix/Meteor-famono.git",
-        "tag": "v0.1.9",
-        "commit": "7a3c1b77b9d18ad76a57bc4298a6af53549ea0bf"
-      },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
         "tag": "v0.7.1",
@@ -21,6 +16,11 @@
         "git": "https://github.com/mquandalle/meteor-jade.git",
         "tag": "v0.2.2",
         "commit": "0391abab7d592b17ff74d9b9beaa721051970729"
+      },
+      "famono": {
+        "git": "https://github.com/raix/Meteor-famono.git",
+        "tag": "v0.1.9",
+        "commit": "7a3c1b77b9d18ad76a57bc4298a6af53549ea0bf"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

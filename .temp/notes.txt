@@ -1,0 +1,3 @@
+    "famono-dc": {
+    	"path": "../Meteor-famono"
+    }

@@ -1,19 +1,18 @@
-Modifier        = require("famous/core/Modifier")
-Transform       = require("famous/core/Transform")
-Transitionable  = require("famous/transitions/Transitionable")
-TweenTransition = require("famous/transitions/TweenTransition")
-Circle			= require("famous/physics/bodies/Circle")
+# Modifier        = require("famous/core/Modifier")
+# Transform       = require("famous/core/Transform")
+# Transitionable  = require("famous/transitions/Transitionable")
+# TweenTransition = require("famous/transitions/TweenTransition")
+# Circle			= require("famous/physics/bodies/Circle")
 
 
 class @Unit
 	constructor: (@uname, @bat) ->
+		@Fam = getFamLib().init()
 		# FIX needs document.body - where best to include?
-		ImageSurface = require("famous/surfaces/ImageSurface")
-		Surface = require("famous/core/Surface") 
 		i = _.random(20)
 		imgurl = "/units/monster/#{uname}_monster.png"
 
-		@surf = new ImageSurface(
+		@surf = new @Fam.ImageSurface(
 			content: imgurl
 			size: [ 100, 100 ]
 			properties:
@@ -49,7 +48,8 @@ class @Unit
 		@surf.properties.backgroundColor = "red"
 
 	addBody: (opts) ->
-		@body = new Circle(
+		console.log("addBody, @Fam", @Fam)
+		@body = new @Fam.Circle(
 			radius : 50
 			velocity : opts.vel		# 1ms = 1 px
 			position: opts.pos

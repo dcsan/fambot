@@ -12,9 +12,11 @@ Template.unit.icon = (unit) ->
 
 Template.battle.init = (units) ->
 	return unless units
-	console.log("init with", units)
-	@bat = new Arena(units)
-	console.log("battle.init", @bat, units)
+	fam = getFamLib()
+	console.log("battle init", fam)
+	# console.log("init with", units)
+	@bat = new Arena(units, fam)
+	# console.log("battle.init", @bat, units)
 	unit1 = @bat.addUnit(units[0], {
 		pos: [ 100,      0, 0]
 		vel: [ 0.1, 0.01, 0]

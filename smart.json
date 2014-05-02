@@ -1,7 +1,11 @@
 {
+	"meteor": {
+		"branch": "master"
+	},
+
   "packages": {
-    "famono": {},
     "iron-router": {},
-    "jade": {}
+    "jade": {},
+    "famono": {}
   }
 }

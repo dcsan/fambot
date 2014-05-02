@@ -1,0 +1,6 @@
+# On server startup, if the database is empty, create some initial data.
+if Meteor.isServer
+  Meteor.startup ->
+    Rooms.insert name: "Initial room"  if Rooms.find().count() is 0
+    return
+

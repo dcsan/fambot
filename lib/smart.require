@@ -1,6 +1,6 @@
 {
 	"famous": {
-		"git": "https://github.com/Famous/famous.git"
+		"git": "git://github.com/Famous/famous.git"
 	},
 	"famous-polyfills": {
 		"git": "https://github.com/Famous/polyfills.git"
