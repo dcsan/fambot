@@ -1,6 +1,7 @@
 class @Arena
 	constructor: (@unitNames, @fam) ->
 		@fam.init()
+		@bouncey = 0.5
 		console.log("construct Arena")
 		@vw = window.innerWidth
 		@vh = window.innerHeight
@@ -12,7 +13,6 @@ class @Arena
 			origin: [0.5, 0.5, 0.5]
 		)
 
-		@bouncey = 0.5
 
 		# @renderController = new @fam.RenderController()
 		# @mainContext.add(new @fam.Modifier(origin: [
@@ -22,8 +22,7 @@ class @Arena
 		
 
 	addUnit: (uname, opts) ->
-		unit = new Unit(uname)
-		unit.addBody(opts)
+		unit = new Unit(uname, opts)
 		@physicsEngine.addBody(unit.body)
 
 		for other in @units

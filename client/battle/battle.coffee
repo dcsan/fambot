@@ -29,12 +29,16 @@ randomUnit = () ->
 	console.log("randomUnit", @battle)
 	uname = _.sample(@battle.unitNames)
 	# pos = randomVec(1,1,1)
-	pos = [0,0,0]
+	obj = {
+		uname: uname
+		position: [0,0,0]
+		size: [100, 100]
+		velocity: randomVec(10, 10, 10)
+		battle: window.battle
+	}
 
-	unit = battle.addUnit(uname,
-		pos: pos
-		vel: randomVec(10, 10, 0)
-	)
+	console.log("create obj", obj)
+	unit = battle.addUnit(obj)
 	return unit
 
 randomVec = (vx=1, vy=1, vz=0)->

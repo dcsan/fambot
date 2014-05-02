@@ -30,7 +30,7 @@ Meteor.startup ->
 		fam = getFamLib()
 		# console.log("FamLib.init", fam)
 		if (fam.Surface)
-			console.log("skipping 2nd init")
+			# console.log("skipping 2nd init")
 		else
 			fam.Surface 	 = require("famous/core/Surface")
 			fam.ImageSurface = require("famous/surfaces/ImageSurface")

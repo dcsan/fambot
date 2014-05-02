@@ -1,17 +1,25 @@
 class @Unit
-	constructor: (@uname, @bat) ->
+	constructor: (@opts) ->
+		# @opts = opts
+		@uname = @opts.uname
+
+		console.log("constructor opt:", @opts)
+		check(@opts.velocity, [Number] )
+
 		@Fam = getFamLib().init()
 		i = _.random(20)
-		imgurl = "/units/monster/#{uname}_monster.png"
+		imgurl = "/units/monster/#{@uname}_monster.png"
 
+		@opts.size ?= [100,100]
 		@surf = new @Fam.ImageSurface(
 			content: imgurl
-			size: [ 100, 100 ]
+			size: @opts.size
 			properties:
 				# backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
 				backgroundColor: "white"
 		)
 		@surf.addClass("rounder")
+		@addBody(@opts)
 
 
 	# bounce: () ->
@@ -44,13 +52,20 @@ class @Unit
 
 
 	reset: (who) ->
-		console.log("reset", @uname)
+		# console.log("reset", @uname)
 		@surf.properties.backgroundColor = "green"
 
-	addBody: (opts) ->
-		console.log("addBody, @Fam", @Fam)
-		@body = new @Fam.Circle(
-			radius : 50
-			velocity : opts.vel		# 1ms = 1 px
-			position: opts.pos
-		)
+	addBody: (obj) ->
+		obj.origin = [
+			- obj.size[0] * 3
+			- obj.size[1] * 3
+			- obj.size[2] * 3
+		]
+		# obj.position = [
+		# 	- obj.size[0] * 3
+		# 	- obj.size[1] * 3
+		# 	- obj.size[2] * 3
+		# ]
+		obj.radius = obj.size[0] / 2
+		console.log("addBody", obj)
+		@body = new @Fam.Circle(obj)
