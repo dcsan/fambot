@@ -28,13 +28,20 @@ Meteor.startup ->
 	# has to happen after we have a DOM
 	fam.init = () ->
 		fam = getFamLib()
-		console.log("FamLib.init", fam)
+		# console.log("FamLib.init", fam)
 		if (fam.Surface)
 			console.log("skipping 2nd init")
 		else
 			fam.Surface 	 = require("famous/core/Surface")
 			fam.ImageSurface = require("famous/surfaces/ImageSurface")
 		
-		console.log("famous.init() done", fam)
+		# console.log("famous.init() done", fam)
 		return fam
 
+
+
+# mod = new @fam.Modifier(
+# 	{
+# 		transform: @fam.Transform.translate(opts.px, 0, 0)
+# 	}
+# )

@@ -1,8 +1,8 @@
-@bat = {}
+# @battle = {}
 
 # Rig some famo.us deps
-require "famous-polyfills" # Add polyfills
-require "famous/core/famous" # Add the default css file
+# require "famous-polyfills" # Add polyfills
+# require "famous/core/famous" # Add the default css file
 
 # Basic deps
 
@@ -10,37 +10,37 @@ Template.unit.icon = (unit) ->
 	console.log("icon unit: #{unit}")
 	unitIcon(unit)
 
-Template.battle.init = (units) ->
-	return unless units
+Template.battle.init = (unitNames) ->
+	return unless unitNames
+	Session.set('unitNames', unitNames)
 	fam = getFamLib()
-	console.log("battle init", fam)
-	# console.log("init with", units)
-	@bat = new Arena(units, fam)
-	# console.log("battle.init", @bat, units)
-	unit1 = @bat.addUnit(units[0], {
-		pos: [ 100,      0, 0]
-		vel: [ 0.1, 0.01, 0]
-	})
-	unit2 = @bat.addUnit(units[0], {
-		pos: [ 300, 0, 0]
-		vel: [ -0.1, 0.01, 0]
-		# vel: [ 0, 0.01, 0]
-	})
+	@battle = new Arena(unitNames, fam)
+	window.battle = @battle
 
-	console.log("setCollision", unit1.body, unit2.body)
-	
-	@bat.setCollision(unit1.body, unit2.body)
-	# @bat.addWalls()
-	window.bat 	 = @bat
-	window.unit1 = unit1
-	window.unit2 = unit2
+	u1 = randomUnit()
+	u2 = randomUnit()
+
+	# @battle.addCollision(u1, u2)
+
 	return "ready"
 
+randomUnit = () ->
+	@battle = window.battle
+	console.log("randomUnit", @battle)
+	uname = _.sample(@battle.unitNames)
+	# pos = randomVec(1,1,1)
+	pos = [0,0,0]
 
-randomVec = (vx, vy, vz)->
-	x = _.random(vx || @bat.vw * 100)/100
-	y = _.random(vy || @bat.vh * 100)/100
-	z = 1
+	unit = battle.addUnit(uname,
+		pos: pos
+		vel: randomVec(10, 10, 0)
+	)
+	return unit
+
+randomVec = (vx=1, vy=1, vz=0)->
+	x = _.random(vx * 100)/100.0
+	y = _.random(vy * 100)/100.0
+	z = 0
 	[x, y, z]
 
 
@@ -50,15 +50,7 @@ Template.battle.greeting = () ->
 
 Template.battle.events =
 	"click #addMon": (event) ->
-		uname = _.sample(@bat.allUnits)
-		console.log "addMon", uname
-
-		pos = randomVec()
-
-		unit = @bat.addUnit(uname,
-			pos: randomVec(100,100,1)
-			vel: randomVec(10, 10, 10)
-		)
+		randomUnit()
 
 	"click #delMon": (event) ->
 		@bat.hideUnit()

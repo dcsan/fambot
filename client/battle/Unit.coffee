@@ -1,14 +1,6 @@
-# Modifier        = require("famous/core/Modifier")
-# Transform       = require("famous/core/Transform")
-# Transitionable  = require("famous/transitions/Transitionable")
-# TweenTransition = require("famous/transitions/TweenTransition")
-# Circle			= require("famous/physics/bodies/Circle")
-
-
 class @Unit
 	constructor: (@uname, @bat) ->
 		@Fam = getFamLib().init()
-		# FIX needs document.body - where best to include?
 		i = _.random(20)
 		imgurl = "/units/monster/#{uname}_monster.png"
 
@@ -17,7 +9,7 @@ class @Unit
 			size: [ 100, 100 ]
 			properties:
 				# backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
-				backgroundColor: "green"
+				backgroundColor: "white"
 		)
 		@surf.addClass("rounder")
 
@@ -45,7 +37,12 @@ class @Unit
 
 
 	bounce: (opts) ->
-		@surf.properties.backgroundColor = "red"
+		# @surf.properties.backgroundColor = "red"
+		setTimeout (=> @reset(@) ), 1000
+
+	reset: (who) ->
+		console.log("reset", who.uname)
+		who.surf.properties.backgroundColor = "green"
 
 	addBody: (opts) ->
 		console.log("addBody, @Fam", @Fam)
@@ -54,6 +51,3 @@ class @Unit
 			velocity : opts.vel		# 1ms = 1 px
 			position: opts.pos
 		)
-
-
-

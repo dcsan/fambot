@@ -1,7 +1,7 @@
 class @Arena
-	constructor: (@allUnits, @fam) ->
+	constructor: (@unitNames, @fam) ->
 		@fam.init()
-		console.log("construct Arena", @Fam)
+		console.log("construct Arena")
 		@vw = window.innerWidth
 		@vh = window.innerHeight
 		@units = []
@@ -12,7 +12,7 @@ class @Arena
 			origin: [0.5, 0.5, 0.5]
 		)
 
-		# @collision = new @fam.Collision({restitution : .7})
+		@bouncey = 0.5
 
 		# @renderController = new @fam.RenderController()
 		# @mainContext.add(new @fam.Modifier(origin: [
@@ -24,31 +24,26 @@ class @Arena
 	addUnit: (uname, opts) ->
 		unit = new Unit(uname)
 		unit.addBody(opts)
-
-		@units.push(unit)
-		# @renderController.show (unit.surf)
-		console.log("new @fam.unit", unit)
-		# unit.bounce()
 		@physicsEngine.addBody(unit.body)
 
-		mod = new @fam.Modifier(
-			{
-				transform: @fam.Transform.translate(opts.px, 0, 0)
-			}
-		)
+		for other in @units
+			@addCollision(unit, other)
+
 		@mainContext.add(unit.body).add(unit.surf)
-		# @mainContext.add(unit.body).add(mod).add(unit.surf)
-		# @renderController.add(unit.body).add(unit.surf)
-		# @physicsEngine.attach(collision, circle1, circle2)
-		# @addBox(unit)
+		@units.push(unit)
+		@addBox(unit)
+
+		console.log("new @fam.unit", unit)
 		return unit
 
 	addBox: (unit) ->
 		contextSize = @mainContext.getSize()
-		leftWall    = new @fam.Wall({normal : [1,0,0],  distance : contextSize[0]/2.0, restitution : 0.5});
-		rightWall   = new @fam.Wall({normal : [-1,0,0], distance : contextSize[0]/2.0, restitution : 0.5});
-		topWall     = new @fam.Wall({normal : [0,1,0],  distance : contextSize[1]/2.0, restitution : 0.5});
-		bottomWall  = new @fam.Wall({normal : [0,-1,0], distance : contextSize[1]/2.0, restitution : 0.5});
+		fudge = unit.surf.getSize()
+
+		leftWall    = new @fam.Wall({normal : [1,0,0],  distance : fudge[0]/2 , restitution : @bouncey});
+		rightWall   = new @fam.Wall({normal : [-1,0,0], distance : contextSize[0] - fudge[1]/2, restitution : @bouncey});
+		topWall     = new @fam.Wall({normal : [0,1,0],  distance : fudge[1]/2 , restitution : @bouncey});
+		bottomWall  = new @fam.Wall({normal : [0,-1,0], distance : contextSize[1] - fudge[1]/2, restitution : @bouncey});
 
 		@physicsEngine.attach( leftWall,  [unit.body]);
 		@physicsEngine.attach( rightWall, [unit.body]);
@@ -56,24 +51,28 @@ class @Arena
 		@physicsEngine.attach( bottomWall,[unit.body]);
 
 
-	addWalls: (opts) ->
-		# left wall
-		@walls.push = new @fam.Wall({normal : [  1,0,0], distance : 200})
-		@walls.push = new @fam.Wall({normal : [  -1,0,0], distance : 300})
-		@walls.push = new @fam.Wall({normal : [   0,1,0], distance : 300})
+	# addWalls: (opts) ->
+	# 	# left wall
+	# 	@walls.push = new @fam.Wall({normal : [  1,0,0], distance : 200})
+	# 	@walls.push = new @fam.Wall({normal : [  -1,0,0], distance : 300})
+	# 	@walls.push = new @fam.Wall({normal : [   0,1,0], distance : 300})
 
-		# @walls = new @fam.Walls()
-		console.log("created walls")
-		for w in @walls
-			@physicsEngine.attach(w)
+	# 	# @walls = new @fam.Walls()
+	# 	console.log("created walls")
+	# 	for w in @walls
+	# 		@physicsEngine.attach(w)
 
 	hideUnit: (uname) ->
 		u = @units.pop()
 		# @renderController.hide (u.surf)
 		console.log("hid", u)
 
-	setCollision: (obj1, obj2) ->
-		@physicsEngine.attach(@collision, obj1, obj2)
-		@collision.on 'collision', (evt) ->
-			console.log("collide", evt)
+	addCollision: (unit1, unit2) ->
+		collision = new @fam.Collision({restitution : 0.7 })
+		@physicsEngine.attach(collision, unit1.body, unit2.body)
+		console.log("addCollision", unit1, unit2)
+		collision.on 'collision', (evt) =>
+			unit1.bounce()
+			unit2.bounce()
+			console.log("collide: #{unit1.uname} #{unit2.uname}")
 
