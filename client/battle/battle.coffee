@@ -10,12 +10,14 @@ Template.unit.icon = (unit) ->
 	console.log("icon unit: #{unit}")
 	unitIcon(unit)
 
-Template.battle.init = (unitNames) ->
-	return unless unitNames
-	Session.set('unitNames', unitNames)
+Template.battle.init = (unitNames) ->	
+	return unless unitNames  # reactive
 	fam = getFamLib()
-	@battle = new Arena(unitNames, fam)
-	window.battle = @battle
+	if (@battle = window.battle)
+		@battle.reset()
+	else
+		@battle = new Arena(unitNames, fam)
+		window.battle = @battle
 
 	u1 = randomUnit()
 	u2 = randomUnit()

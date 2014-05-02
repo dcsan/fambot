@@ -1,3 +1,5 @@
+window.ctx = null
+
 class @Arena
 	constructor: (@unitNames, @fam) ->
 		@fam.init()
@@ -5,21 +7,26 @@ class @Arena
 		console.log("construct Arena")
 		@vw = window.innerWidth
 		@vh = window.innerHeight
-		@units = []
-		@lastUnit = null
-		@walls = []
-		@mainContext = @fam.Engine.createContext()
+
+		@mainContext = window.ctx || @fam.Engine.createContext()
+
 		@physicsEngine = new @fam.PhysicsEngine(
 			origin: [0.5, 0.5, 0.5]
 		)
-
-
-		# @renderController = new @fam.RenderController()
-		# @mainContext.add(new @fam.Modifier(origin: [
-		# 	.5
-		# 	.5
-		# ])).add @renderController
+		@setup()
 		
+	setup: () ->
+		@units = []
+		@lastUnit = null
+		@walls = []
+		@ctrl = new @fam.RenderController()
+		@node = new @fam.RenderNode()
+
+
+	# when returning to battle
+	reset: () ->
+		@ctrl.hide()
+		@setup()
 
 	addUnit: (uname, opts) ->
 		unit = new Unit(uname, opts)
@@ -29,7 +36,9 @@ class @Arena
 			@addCollision(unit, other)
 
 		# @mainContext.add(unit.body).add(unit.surf)
-		@mainContext.add(unit.body).add(unit.modifier).add(unit.surf)
+		@node.add(unit.body).add(unit.modifier).add(unit.surf)
+		@ctrl.show(@node)
+		@mainContext.add(@ctrl)
 		@units.push(unit)
 		@addBox(unit)
 

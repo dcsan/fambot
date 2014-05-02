@@ -6,28 +6,29 @@ class @Unit
 		console.log("constructor opt:", @opts)
 		check(@opts.velocity, [Number] )
 
-		@Fam = getFamLib().init()
+		@fam = getFamLib().init()
 		i = _.random(20)
 		imgurl = "/units/monster/#{@uname}_monster.png"
 
 		@opts.size ?= [100,100]
 
 		## offset so that the physics body is centered
-		@modifier = new @Fam.Modifier(
+		@modifier = new @fam.Modifier(
 			# origin: [ 0.5, 0.5 ]
-			transform: @Fam.Transform.translate(
+			transform: @fam.Transform.translate(
 				- opts.size[0]/2, 
 				- opts.size[1]/2, 
 				0
 			)
 		)
 
-		@surf = new @Fam.ImageSurface(
+		@surf = new @fam.ImageSurface(
 			content: imgurl
 			size: @opts.size
 			properties:
 				# backgroundColor: "hsl(" + (i * 360 / 20) + ", 100%, 50%)"
 				backgroundColor: "white"
+				# borderRadius: opts.size[0] / 2
 		)
 
 		@surf.addClass("rounder")
@@ -85,4 +86,4 @@ class @Unit
 		# ]
 		obj.radius = obj.size[0] / 2
 		console.log("addBody", obj)
-		@body = new @Fam.Circle(obj)
+		@body = new @fam.Circle(obj)

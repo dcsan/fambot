@@ -1,18 +1,13 @@
 template(name="home")
-	h1 home
-
-	p #{msg}
+	h1 Yojimbos
 
 	h3
 		a(href="battle") battle
 
 	h3 units list
-	ul
 	each units
-		li
-			a(href="/units/#{this}") 
-				img(src="/units/icon100/#{this}_deck.png")
-				span #{this}
+		a(href="/units/#{this}") 
+			img(src="/units/icon100/#{this}_deck.png" class="rounder" height='100' width='100')
 
 
 	hr

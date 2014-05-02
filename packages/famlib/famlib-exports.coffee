@@ -18,6 +18,9 @@ Meteor.startup ->
 	fam.TweenTransition 	= require("famous/transitions/TweenTransition")
 	fam.SpringTransition	= require("famous/transitions/SpringTransition")
 	fam.PhysicsEngine		= require("famous/physics/PhysicsEngine")
+
+	fam.RenderNode			= require("famous/core/RenderNode")
+
 	fam.Wall 				= require("famous/physics/constraints/Wall")
 	# fam.Walls 				= require("famous/physics/constraints/Walls")
 	fam.Circle				= require("famous/physics/bodies/Circle")
