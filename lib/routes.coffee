@@ -1,3 +1,5 @@
+Router.configure layoutTemplate: "mobile"
+
 Router.map ->
 	@route "home",
 		path: "/"

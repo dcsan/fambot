@@ -83,5 +83,5 @@ class @Arena
 		console.log("addCollision", unit1, unit2)
 		collision.on 'collision', (evt) =>
 			unit1.bounce(unit2)
-			console.log("collide: #{unit1.uname} #{unit2.uname}")
+			# console.log("collide: #{unit1.uname} #{unit2.uname}")
 
